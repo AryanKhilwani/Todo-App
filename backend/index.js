@@ -19,22 +19,20 @@ app.post('/todo', async (req, res) => {
     const parsedPayload = createTodo.safeParse(payload);
 
     if (parsedPayload.success) {
-        res.status(201);
+        await todo.create({
+            title: payload.title,
+            description: payload.description,
+            completed: false
+        });
+    
+        res.status(201).json({
+            msg: "Todo Created"
+        });
     } else {
         res.status(411).json({
             msg : 'Invalid Input'
         });
     }
-
-    await todo.create({
-        title: payload.title,
-        description: payload.description,
-        completed: false
-    });
-
-    res.json({
-        msg: "Todo Created"
-    });
 
 });
 
@@ -43,17 +41,15 @@ app.put('/completed', async (req, res) => {
     const parsedPayload = updateTodo.safeParse(updatedPayload);
 
     if (parsedPayload.success) {
-        res.status(201);
+        await todo.updateOne({_id: updatedPayload.id}, {completed: false});
+        res.status(201).json({
+            msg: "Todo Marked as done"
+        });
     } else {
         res.status(411).json({
             msg : 'Invalid Input'
         });
     }
-
-    await todo.updateOne({_id: updatedPayload.id}, {completed: false});
-    res.json({
-        msg: "Todo Marked as done"
-    });
 
 });
 
