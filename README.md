@@ -4,6 +4,6 @@
 This app is a simple todo application
 
 User can do following operations :
--create a new todo
--see their existing todos
--mark todos once they are done
+  <li>create a new todo
+  <li>see their existing todos
+  <li>mark todos once they are done
