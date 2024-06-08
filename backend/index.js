@@ -41,7 +41,7 @@ app.put('/completed', async (req, res) => {
     const parsedPayload = updateTodo.safeParse(updatedPayload);
 
     if (parsedPayload.success) {
-        await todo.updateOne({_id: updatedPayload.id}, {completed: false});
+        await todo.updateOne({_id: updatedPayload.id}, {completed: true});
         res.status(201).json({
             msg: "Todo Marked as done"
         });
